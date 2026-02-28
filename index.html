@@ -1,1 +1,156 @@
-HI
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notabene — Notes Organizer</title>
+  <meta name="description" content="Notabene: course organizer with tabs, previews, favorites, and topics." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bgGlow" aria-hidden="true"></div>
+
+  <!-- theme toggle -->
+  <button id="themeToggle" class="iconBtn globalThemeBtn" type="button" aria-pressed="false" title="Toggle light/dark">
+    ☾
+  </button>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Course list">
+      <div class="sideTop">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">𝐍</div>
+          <div class="brandText">
+            <div class="eyebrow">NOTABENE</div>
+            <div class="brandTitle">Notes Organizer</div>
+          </div>
+        </div>
+
+        <div class="sideSearch">
+          <label class="srOnly" for="courseSearch">Search courses</label>
+          <input id="courseSearch" type="search" placeholder="Search: cse320, networks, oop..." autocomplete="off" />
+        </div>
+
+        <div class="sideFilters">
+          <label class="field">
+            <span>Semester</span>
+            <select id="semFilter">
+              <option value="all">All</option>
+              <option value="5">Sem 5</option>
+              <option value="4">Sem 4</option>
+              <option value="3">Sem 3</option>
+              <option value="2">Sem 2</option>
+              <option value="1">Sem 1</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Type</span>
+            <select id="typeFilter">
+              <option value="all">All</option>
+              <option value="theory">Theory</option>
+              <option value="lab">Lab</option>
+              <option value="practice">Practice</option>
+            </select>
+          </label>
+
+          <button id="favOnlyBtn" class="btn ghost" type="button" aria-pressed="false">
+            ★ Favorites
+          </button>
+        </div>
+      </div>
+
+      <div class="sideStats" aria-label="Quick stats">
+        <div class="stat">
+          <div class="num" id="statTotal">0</div>
+          <div class="lbl">Courses</div>
+        </div>
+        <div class="stat">
+          <div class="num" id="statVisible">0</div>
+          <div class="lbl">Visible</div>
+        </div>
+        <div class="stat">
+          <div class="num" id="statFavs">0</div>
+          <div class="lbl">Starred</div>
+        </div>
+      </div>
+
+      <nav class="courseListWrap" aria-label="Courses">
+        <div id="courseList" class="courseList"></div>
+        <div id="emptyCourses" class="empty small" hidden>No courses match your filters.</div>
+      </nav>
+
+      <div class="sideFooter small muted">
+        Tip: Pick a course → focus view. Topics are on the right. Tick ✅ when finished.
+      </div>
+
+      <div class="credits">
+        Made for my friends by <strong>K. Fatema</strong>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main" aria-label="Course content">
+      <div class="mainGrid">
+        <!-- Left content -->
+        <section class="contentCol" aria-label="Course view">
+          <header class="mainHeader">
+            <div class="titleBlock">
+              <div class="kickerRow">
+                <span class="badge" id="badgeSem">Sem —</span>
+                <span class="badge type" id="badgeType">—</span>
+                <span class="badge muted" id="badgeCode">—</span>
+              </div>
+              <h1 id="courseTitle">Select a course</h1>
+              <p class="sub muted" id="courseMeta">Instructor: —</p>
+            </div>
+
+            <div class="headerActions">
+              <button id="courseFavBtn" class="chipBtn" type="button" aria-pressed="false" title="Favorite this course">★</button>
+              <button id="copyLinkBtn" class="chipBtn" type="button" title="Copy link to this course">Copy link</button>
+            </div>
+          </header>
+
+          <section class="tabs" aria-label="Course tabs">
+            <div class="tabRow" role="tablist" aria-label="Tabs">
+              <button class="tab active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+              <button class="tab" data-tab="notes" role="tab" aria-selected="false">Notes</button>
+              <button class="tab" data-tab="ct" role="tab" aria-selected="false">CT Questions</button>
+              <button class="tab" data-tab="videos" role="tab" aria-selected="false">Videos</button>
+              <button class="tab" data-tab="repos" role="tab" aria-selected="false">Repos</button>
+              <button class="tab" data-tab="favorites" role="tab" aria-selected="false">★ Favorites</button>
+            </div>
+
+            <div class="tabPanel" id="tabPanel" role="tabpanel"></div>
+          </section>
+        </section>
+
+        <!-- Topics panel -->
+        <aside class="topicsCol" aria-label="Topics panel">
+          <section class="topicsBar">
+            <div class="topicsHead">
+              <div>
+                <div class="topicsTitle">Topics</div>
+                <div class="small muted">Reorder and tick topics when finished.</div>
+              </div>
+
+              <form id="topicAddForm" class="topicAdd">
+                <input id="topicInput" type="text" placeholder="Add a topic" />
+                <button class="btn" type="submit">Add</button>
+              </form>
+            </div>
+
+            <div id="topicsProgress" class="topicsProgress small muted"></div>
+
+            <div id="topicsList" class="topicsList" aria-live="polite"></div>
+            <div id="topicsEmpty" class="empty small" hidden>No topics yet. Add one above.</div>
+          </section>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

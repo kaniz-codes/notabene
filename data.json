@@ -1,0 +1,58 @@
+{
+  "appName": "Notabene",
+  "tagline": "Notes Organizer",
+  "version": 1,
+  "courses": [
+    {
+      "id": "cse320",
+      "code": "CSE320",
+      "semester": 5,
+      "type": "theory",
+      "title": "Computer Networks",
+      "instructor": "Dr. Khandoker Nadim Parvez",
+      "description": "Notes, CT questions, playlist links, and repos for Computer Networks.",
+      "topics": ["OSI Model", "TCP/UDP", "IP Addressing & Subnetting", "Routing Basics"],
+      "resources": {
+        "notes": [
+          { "id": "n1", "label": "Slides", "url": "https://github.com/kaniz-codes/cse320/tree/main/material", "by": "Kaniz" },
+          { "id": "n2", "label": "Slides (Alt)", "url": "https://github.com/kaniz-codes/cse320/tree/main/material", "by": "Kaniz" }
+        ],
+        "ct": [
+          { "id": "ct1", "label": "CT-1 Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" },
+          { "id": "ct2", "label": "CT-2 Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" },
+          { "id": "ct3", "label": "Mid Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" }
+        ],
+        "videos": [
+          { "id": "v1", "label": "Networks Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" }
+        ],
+        "repos": [
+          { "id": "r1", "label": "Course Repo", "url": "https://github.com/kaniz-codes/cse320", "by": "Kaniz" },
+          { "id": "r2", "label": "Lab Solutions Repo", "url": "https://github.com/kaniz-codes/cse320-labs", "by": "Kaniz" },
+          { "id": "r3", "label": "Practice Problems Repo", "url": "https://github.com/kaniz-codes/cse320-practice", "by": "Kaniz" }
+        ]
+      }
+    },
+    {
+      "id": "cse342",
+      "code": "CSE342",
+      "semester": 5,
+      "type": "lab",
+      "title": "Java OOP Lab",
+      "instructor": "—",
+      "description": "Lab tasks, notes, and playlists for Java OOP Lab.",
+      "topics": ["Classes & Objects", "Inheritance", "Polymorphism", "Interfaces"],
+      "resources": {
+        "notes": [
+          { "id": "n1", "label": "Notes Folder", "url": "https://drive.google.com/", "by": "Kaniz" }
+        ],
+        "ct": [],
+        "videos": [
+          { "id": "v1", "label": "OOP Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" }
+        ],
+        "repos": [
+          { "id": "r1", "label": "Lab Repo", "url": "#", "by": "Me" }
+        ]
+      }
+    }
+  ]
+}
