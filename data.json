@@ -14,16 +14,37 @@
       "topics": ["OSI Model", "TCP/UDP", "IP Addressing & Subnetting", "Routing Basics"],
       "resources": {
         "notes": [
-          { "id": "n1", "label": "Slides", "url": "https://github.com/kaniz-codes/cse320/tree/main/material", "by": "Kaniz" },
-          { "id": "n2", "label": "Slides (Alt)", "url": "https://github.com/kaniz-codes/cse320/tree/main/material", "by": "Kaniz" }
+          {
+            "id": "n1",
+            "label": "Slides",
+            "url": "https://github.com/kaniz-codes/cse320/tree/main/material",
+            "by": "Kaniz"
+          },
+          {
+            "id": "n2",
+            "label": "Slides (Alt)",
+            "url": "https://github.com/kaniz-codes/cse320/tree/main/material",
+            "by": "Kaniz"
+          }
         ],
         "ct": [
           { "id": "ct1", "label": "CT-1 Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" },
           { "id": "ct2", "label": "CT-2 Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" },
-          { "id": "ct3", "label": "Mid Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" }
+          { "id": "ct3", "label": "Mid Questions (PDF)", "url": "https://drive.google.com/", "by": "Kaniz" },
+          {
+            "id": "ct4",
+            "label": "CT01-sec-9",
+            "url": "https://drive.google.com/file/d/1p0JP_gkKBIeSgvXhLbJM4NnB2bcwXepf/view?usp=drive_link",
+            "by": "Kaniz"
+          }
         ],
         "videos": [
-          { "id": "v1", "label": "Networks Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" }
+          {
+            "id": "v1",
+            "label": "Networks Video (Preview test)",
+            "url": "https://youtu.be/xfnnJNEGm7w",
+            "by": "Kaniz"
+          }
         ],
         "repos": [
           { "id": "r1", "label": "Course Repo", "url": "https://github.com/kaniz-codes/cse320", "by": "Kaniz" },
@@ -47,7 +68,13 @@
         ],
         "ct": [],
         "videos": [
-          { "id": "v1", "label": "OOP Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" }
+          { "id": "v1", "label": "OOP Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" },
+          {
+            "id": "v2",
+            "label": "Pass obj as parameter and return obj from method | Java",
+            "url": "https://youtu.be/xfnnJNEGm7w?si=IqI-Y2hom97f8bOC",
+            "by": "Kaniz"
+          }
         ],
         "repos": [
           { "id": "r1", "label": "Lab Repo", "url": "#", "by": "Me" }

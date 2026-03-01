@@ -13,32 +13,6 @@ In many courses, resources get scattered across chat groups, Google Drive links,
 - and share course pages easily with classmates
 
 
-## Features
-
-- **Course Sidebar**
-  - Search courses
-  - Filter by semester and type (theory / lab / practice)
-  - Favorites-only view
-  - Quick stats (total / visible / starred)
-
-- **Course Tabs**
-  - Overview, Notes, CT Questions, Videos, Repos, ★ Starred links
-
-- **Favorites**
-  - Star courses and individual links
-
-- **Topics Tracker**
-  - Add topics
-  - Reorder (drag & drop)
-  - Mark complete ✅ and view progress
-
-- **Theme Toggle**
-  - Dark / Light mode
-
-- **Shareable Course Links**
-  - Copy a course link to open directly on that course
-
-
 ## How to Use
 
 1. **Open Notabene**

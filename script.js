@@ -1,11 +1,13 @@
 let courses = [];
 let APP_DATA = {};
 
+/* Storage */
 const LS_THEME = "notabene_theme_v5";
 const LS_COURSE_FAVS = "notabene_course_favs_v7";
-const LS_LINK_FAVS = "notabene_link_favs_v7";
+const LS_LINK_DONE = "notabene_link_done_v1";
 const LS_TOPICS = "notabene_topics_v4";
 
+/* State */
 const state = {
   selectedCourseId: null,
   currentTab: "overview",
@@ -15,10 +17,11 @@ const state = {
   favOnly: false,
   theme: "dark",
   courseFavs: new Set(JSON.parse(localStorage.getItem(LS_COURSE_FAVS) || "[]")),
-  linkFavs: new Set(JSON.parse(localStorage.getItem(LS_LINK_FAVS) || "[]")),
+  linkDone: new Set(JSON.parse(localStorage.getItem(LS_LINK_DONE) || "[]")),
   topicsByCourse: JSON.parse(localStorage.getItem(LS_TOPICS) || "{}")
 };
 
+/* DOM */
 const elThemeToggle = document.getElementById("themeToggle");
 
 const elCourseList = document.getElementById("courseList");
@@ -45,20 +48,22 @@ const elCopyLinkBtn = document.getElementById("copyLinkBtn");
 const tabs = Array.from(document.querySelectorAll(".tab"));
 const elTabPanel = document.getElementById("tabPanel");
 
-// Topics
+/* Topics */
 const elTopicAddForm = document.getElementById("topicAddForm");
 const elTopicInput = document.getElementById("topicInput");
 const elTopicsList = document.getElementById("topicsList");
 const elTopicsEmpty = document.getElementById("topicsEmpty");
 const elTopicsProgress = document.getElementById("topicsProgress");
 
+/* Persist */
 function saveAll(){
   localStorage.setItem(LS_THEME, state.theme);
   localStorage.setItem(LS_COURSE_FAVS, JSON.stringify([...state.courseFavs]));
-  localStorage.setItem(LS_LINK_FAVS, JSON.stringify([...state.linkFavs]));
+  localStorage.setItem(LS_LINK_DONE, JSON.stringify([...state.linkDone]));
   localStorage.setItem(LS_TOPICS, JSON.stringify(state.topicsByCourse));
 }
 
+/* Utils */
 function norm(s){ return String(s || "").toLowerCase().trim(); }
 
 function escapeHTML(s){
@@ -81,14 +86,86 @@ function buildLinkKey(courseId, category, linkId){
   return `${courseId}::${category}::${linkId}`;
 }
 
-/* Load JSON data */
+function linkTextFor(category){
+  return category === "repos" ? "Link to repository" : "Link";
+}
+
+/* YouTube embed */
+function getYouTubeEmbed(url){
+  if (!url) return null;
+
+  try{
+    const u = new URL(url);
+    const host = u.hostname.replace("www.", "").toLowerCase();
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      const list = u.searchParams.get("list");
+      const v = u.searchParams.get("v");
+
+      if (u.pathname === "/playlist" && list) {
+        return { type: "playlist", embed: `https://www.youtube.com/embed/videoseries?list=${encodeURIComponent(list)}` };
+      }
+
+      if (u.pathname === "/watch" && v) {
+        if (list) return { type: "video", embed: `https://www.youtube.com/embed/${encodeURIComponent(v)}?list=${encodeURIComponent(list)}` };
+        return { type: "video", embed: `https://www.youtube.com/embed/${encodeURIComponent(v)}` };
+      }
+
+      if (u.pathname.startsWith("/embed/")) {
+        return { type: "video", embed: url };
+      }
+    }
+
+    if (host === "youtu.be") {
+      const id = u.pathname.split("/").filter(Boolean)[0];
+      if (id) return { type: "video", embed: `https://www.youtube.com/embed/${encodeURIComponent(id)}` };
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+/* Drive thumbnail */
+function getDriveFileId(url){
+  if (!url) return null;
+
+  try{
+    const u = new URL(url);
+    const host = u.hostname.replace("www.", "").toLowerCase();
+    if (host !== "drive.google.com") return null;
+
+    const m = u.pathname.match(/\/file\/d\/([^/]+)/);
+    if (m && m[1]) return m[1];
+
+    const id = u.searchParams.get("id");
+    if (id) return id;
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function getDriveImagePreview(url){
+  const id = getDriveFileId(url);
+  if (!id) return null;
+
+  return {
+    type: "image",
+    src: `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1200`
+  };
+}
+
+/* Load data */
 async function loadData(){
   const res = await fetch("./data.json", { cache: "no-store" });
   if (!res.ok) throw new Error(`Failed to load data.json (${res.status})`);
+
   APP_DATA = await res.json();
   courses = APP_DATA.courses || [];
 
-  // Optional: set title/branding from JSON
   const eyebrowEl = document.querySelector(".eyebrow");
   const brandTitleEl = document.querySelector(".brandTitle");
   if (eyebrowEl && APP_DATA.appName) eyebrowEl.textContent = String(APP_DATA.appName).toUpperCase();
@@ -100,19 +177,26 @@ async function loadData(){
 function applyTheme(theme){
   state.theme = theme === "light" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", state.theme);
+
   const isLight = state.theme === "light";
   elThemeToggle.textContent = isLight ? "☀" : "☾";
   elThemeToggle.setAttribute("aria-pressed", String(isLight));
   saveAll();
 }
 
-/* Filtering */
+/* Filters */
 function courseMatchesFilters(course){
   if (state.sem !== "all" && String(course.semester) !== String(state.sem)) return false;
   if (state.type !== "all" && course.type !== state.type) return false;
 
   if (state.search){
-    const hay = norm([course.code, course.title, course.instructor, course.description, (course.topics||[]).join(" ")].join(" "));
+    const hay = norm([
+      course.code,
+      course.title,
+      course.instructor,
+      course.description,
+      (course.topics||[]).join(" ")
+    ].join(" "));
     if (!hay.includes(state.search)) return false;
   }
 
@@ -177,18 +261,21 @@ function renderSidebar(){
   }
 }
 
-/* Favorites */
+/* Course favorite */
 function toggleCourseFav(courseId){
   if (state.courseFavs.has(courseId)) state.courseFavs.delete(courseId);
   else state.courseFavs.add(courseId);
+
   saveAll();
   renderSidebar();
   renderMain();
 }
 
-function toggleLinkFav(key){
-  if (state.linkFavs.has(key)) state.linkFavs.delete(key);
-  else state.linkFavs.add(key);
+/* Link done */
+function toggleLinkDone(key){
+  if (state.linkDone.has(key)) state.linkDone.delete(key);
+  else state.linkDone.add(key);
+
   saveAll();
   renderMain();
 }
@@ -197,6 +284,7 @@ function toggleLinkFav(key){
 function selectCourse(courseId){
   state.selectedCourseId = courseId;
   history.replaceState(null, "", `#${encodeURIComponent(courseId)}`);
+
   ensureTopicsInitialized(courseId);
   renderSidebar();
   renderMain();
@@ -211,11 +299,13 @@ function initFromHash(){
 /* Tabs */
 function setTab(tabKey){
   state.currentTab = tabKey;
+
   tabs.forEach(t => {
     const active = t.dataset.tab === tabKey;
     t.classList.toggle("active", active);
     t.setAttribute("aria-selected", String(active));
   });
+
   renderMain();
 }
 
@@ -223,12 +313,14 @@ function setTab(tabKey){
 function ensureTopicsInitialized(courseId){
   if (!courseId) return;
   if (state.topicsByCourse[courseId]) return;
+
   const course = getCourseById(courseId);
   const base = (course?.topics || []).map((txt, i) => ({
     id: `t_${courseId}_${i}`,
     text: txt,
     done: false
   }));
+
   state.topicsByCourse[courseId] = base;
   saveAll();
 }
@@ -239,6 +331,7 @@ function setTopics(courseId, topics){ state.topicsByCourse[courseId] = topics; s
 function addTopic(courseId, text){
   const t = text.trim();
   if (!t) return;
+
   const topics = getTopics(courseId);
   topics.push({ id: `t_${Date.now()}`, text: t, done: false });
   setTopics(courseId, topics);
@@ -249,13 +342,17 @@ function deleteTopic(courseId, topicId){
 }
 
 function toggleTopicDone(courseId, topicId, done){
-  setTopics(courseId, getTopics(courseId).map(t => t.id === topicId ? { ...t, done: !!done } : t));
+  setTopics(
+    courseId,
+    getTopics(courseId).map(t => t.id === topicId ? { ...t, done: !!done } : t)
+  );
 }
 
 function moveTopic(courseId, fromIndex, toIndex){
   const topics = [...getTopics(courseId)];
   if (fromIndex < 0 || fromIndex >= topics.length) return;
   if (toIndex < 0 || toIndex >= topics.length) return;
+
   const [item] = topics.splice(fromIndex, 1);
   topics.splice(toIndex, 0, item);
   setTopics(courseId, topics);
@@ -326,6 +423,7 @@ function renderTopics(){
         moveTopic(courseId, fromIndex, toIndex);
         renderTopics();
       }
+
       dragFromId = null;
     });
 
@@ -334,30 +432,12 @@ function renderTopics(){
       renderTopics();
     });
 
-    btnDel.addEventListener("click", () => {
-      deleteTopic(courseId, t.id);
-      renderTopics();
-    });
-
-    btnUp.addEventListener("click", () => {
-      moveTopic(courseId, idx, idx - 1);
-      renderTopics();
-    });
-
-    btnDown.addEventListener("click", () => {
-      moveTopic(courseId, idx, idx + 1);
-      renderTopics();
-    });
+    btnDel.addEventListener("click", () => { deleteTopic(courseId, t.id); renderTopics(); });
+    btnUp.addEventListener("click", () => { moveTopic(courseId, idx, idx - 1); renderTopics(); });
+    btnDown.addEventListener("click", () => { moveTopic(courseId, idx, idx + 1); renderTopics(); });
 
     elTopicsList.appendChild(row);
   });
-}
-
-/* Link text */
-function linkTextFor(category){
-  if (category === "videos") return "Link";
-  if (category === "repos") return "Link to repository";
-  return "Link";
 }
 
 /* Main */
@@ -392,10 +472,11 @@ function renderMain(){
   elTabPanel.innerHTML = "";
 
   if (state.currentTab === "overview") elTabPanel.appendChild(renderOverview(course, res));
-  else if (state.currentTab === "favorites") elTabPanel.appendChild(renderFavorites(course, res));
+  else if (state.currentTab === "favorites") elTabPanel.appendChild(renderDoneTab(course, res));
   else elTabPanel.appendChild(renderResourceTab(course, res, state.currentTab));
 }
 
+/* Overview */
 function renderOverview(course, res){
   const wrap = document.createElement("div");
   wrap.innerHTML = `
@@ -403,17 +484,18 @@ function renderOverview(course, res){
       ${escapeHTML(course.description || "")}
     </div>
     <div class="linkGrid">
-      ${renderMiniSection(course, res, "notes", "📝 Notes")}
-      ${renderMiniSection(course, res, "ct", "⁇ CT Questions")}
-      ${renderMiniSection(course, res, "videos", "▶ Videos")}
+      ${renderSection(course, res, "notes", "📝 Notes")}
+      ${renderSection(course, res, "ct", "⁇ CT Questions")}
+      ${renderSection(course, res, "videos", "▶ Videos")}
     </div>
   `;
-  wireLinkButtons(wrap);
+  wireDoneButtons(wrap);
+  wirePreviewButtons(wrap);
   return wrap;
 }
 
-function renderMiniSection(course, res, category, title){
-  const list = (res[category] || []).slice(0, 2);
+function renderSection(course, res, category, title){
+  const list = (res[category] || []);
   const cards = list.length
     ? list.map(it => renderLinkCardHTML(course, category, it)).join("")
     : `<div class="empty small">No links yet.</div>`;
@@ -428,6 +510,7 @@ function renderMiniSection(course, res, category, title){
   `;
 }
 
+/* Tabs */
 function renderResourceTab(course, res, category){
   const nice = { notes: "Notes", ct: "CT Questions", videos: "Videos", repos: "Repos" }[category] || "Links";
   const items = res[category] || [];
@@ -446,67 +529,138 @@ function renderResourceTab(course, res, category){
       No links yet.
     </div>
   `;
-  wireLinkButtons(wrap);
+  wireDoneButtons(wrap);
+  wirePreviewButtons(wrap);
   return wrap;
 }
 
-function renderFavorites(course, res){
+/* Done tab */
+function renderDoneTab(course, res){
   const cats = ["notes","ct","videos","repos"];
-  const starred = [];
+  const doneItems = [];
 
   for (const cat of cats){
     for (const it of (res[cat] || [])){
       const key = buildLinkKey(course.id, cat, it.id);
-      if (state.linkFavs.has(key)) starred.push({ cat, it });
+      if (state.linkDone.has(key)) doneItems.push({ cat, it });
     }
   }
 
   const wrap = document.createElement("div");
   wrap.innerHTML = `
     <div class="sectionHead">
-      <h2>Starred links</h2>
+      <h2>Done links</h2>
     </div>
 
     <div class="linkGrid">
-      ${starred.map(row => renderLinkCardHTML(course, row.cat, row.it, true)).join("")}
+      ${doneItems.map(row => renderLinkCardHTML(course, row.cat, row.it)).join("")}
     </div>
 
-    <div class="empty small" ${starred.length ? "hidden" : ""}>
-      No starred links yet.
+    <div class="empty small" ${doneItems.length ? "hidden" : ""}>
+      No done links yet.
     </div>
   `;
-  wireLinkButtons(wrap);
+  wireDoneButtons(wrap);
+  wirePreviewButtons(wrap);
   return wrap;
 }
 
-function renderLinkCardHTML(course, category, it, forceFav = false){
+/* Link card */
+function renderLinkCardHTML(course, category, it){
   const key = buildLinkKey(course.id, category, it.id);
-  const fav = forceFav ? true : state.linkFavs.has(key);
+  const isDone = state.linkDone.has(key);
+
   const linkText = linkTextFor(category);
 
+  const yt = getYouTubeEmbed(it.url);
+  const driveImg = getDriveImagePreview(it.url);
+
+  const preview = yt
+    ? { kind: "youtube", embed: yt.embed }
+    : (driveImg ? { kind: "drive-image", src: driveImg.src } : null);
+
   return `
-    <div class="linkCard">
+    <div class="linkCard ${isDone ? "isDone" : ""}">
       <div class="linkLeft">
         <div class="linkTitle">${escapeHTML(it.label || "Link")}</div>
         <div class="linkMeta">
           <span class="courseMini">${escapeHTML(category.toUpperCase())}</span>
           ${it.by ? `<span>By: <strong>${escapeHTML(it.by)}</strong></span>` : ""}
         </div>
+
         <a class="linkAction" href="${escapeHTML(it.url)}" target="_blank" rel="noopener noreferrer">
           ${escapeHTML(linkText)}
         </a>
+
+        ${
+          preview
+            ? `
+              <div class="previewRow">
+                <button class="previewToggle" type="button" data-preview-btn="${escapeHTML(key)}">Preview</button>
+              </div>
+
+              <div class="previewWrap" data-preview-wrap="${escapeHTML(key)}" hidden>
+                ${
+                  preview.kind === "youtube"
+                    ? `
+                      <iframe
+                        class="previewFrame"
+                        src="${escapeHTML(preview.embed)}"
+                        loading="lazy"
+                        title="YouTube preview"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                    `
+                    : `
+                      <img
+                        class="previewImg"
+                        src="${escapeHTML(preview.src)}"
+                        loading="lazy"
+                        alt="Drive image preview"
+                      />
+                    `
+                }
+              </div>
+            `
+            : ``
+        }
       </div>
 
       <div class="linkRight">
-        <button class="starBtn ${fav ? "active" : ""}" type="button" aria-pressed="${fav}" data-star="${escapeHTML(key)}">★</button>
+        <button
+          class="doneBtn ${isDone ? "active" : ""}"
+          type="button"
+          aria-pressed="${isDone}"
+          title="${isDone ? "Mark as not done" : "Mark as done"}"
+          data-done="${escapeHTML(key)}">
+          ${isDone ? "✓ Done" : "Done"}
+        </button>
       </div>
     </div>
   `;
 }
 
-function wireLinkButtons(root){
-  root.querySelectorAll("[data-star]").forEach(btn => {
-    btn.addEventListener("click", () => toggleLinkFav(btn.getAttribute("data-star")));
+/* Wire buttons */
+function wireDoneButtons(root){
+  root.querySelectorAll("[data-done]").forEach(btn => {
+    btn.addEventListener("click", () => toggleLinkDone(btn.getAttribute("data-done")));
+  });
+}
+
+function wirePreviewButtons(root){
+  root.querySelectorAll("[data-preview-btn]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.getAttribute("data-preview-btn");
+      const wrap = root.querySelector(`[data-preview-wrap="${CSS.escape(key)}"]`);
+      if (!wrap) return;
+
+      const willOpen = wrap.hidden;
+      wrap.hidden = !willOpen;
+
+      btn.classList.toggle("active", willOpen);
+      btn.textContent = willOpen ? "Hide preview" : "Preview";
+    });
   });
 }
 
@@ -514,6 +668,7 @@ function wireLinkButtons(root){
 async function copyCourseLink(){
   if (!state.selectedCourseId) return;
   const url = `${location.origin}${location.pathname}#${encodeURIComponent(state.selectedCourseId)}`;
+
   try{
     await navigator.clipboard.writeText(url);
     elCopyLinkBtn.textContent = "Copied!";
