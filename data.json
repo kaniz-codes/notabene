@@ -4,6 +4,42 @@
   "version": 1,
   "courses": [
     {
+      "id": "cse317",
+      "code": "CSE317",
+      "semester": 5,
+      "type": "theory",
+      "title": "System Analysis & Design",
+      "instructor": "—",
+      "description": "Lab tasks, notes, and playlists for System Analysis & Design.",
+      "topics": ["Chap 01: Introduction", "Chap 01: Roles of System analyst", "Chap 01: SDLC", "Chap 01: Case Tools", "Chap 01: Agile Approch", "Chap 02: Context Level DFD", "Chap 02: E-R Diagram", "Chap 03: Project definition", "Chap 03: Project scheduling", "Chap 03: Gantt chart", "Chap 03: PERT chart"],
+      "resources": {
+        "notes": [
+          { "id": "n1", "label": "Mid-term Slides", "url": "https://github.com/kaniz-codes/cse318/tree/main/materials"}
+        ],
+        "ct": [
+          { "id": "ct1","label": "CT01-sec-5", "url": "https://drive.google.com/file/d/1rzx57YySf6LGpijfIv2vB9L-gKgiMMA-/view?usp=drive_link" },
+          { "id": "ct2", "label": "CT01-sec-5", "url": "https://drive.google.com/file/d/1bIirO9nDVAwO8qLpvkDijyKl1Q-Y3G6T/view?usp=drive_link" },
+          { "id": "ct3", "label": "CT01-sec-8", "url": "https://drive.google.com/file/d/1kKSrC96YupmOzaUrwSkvU-PRN5_z0qj1/view?usp=drive_link" },
+          { "id": "ct4", "label": "CT01-1.1", "url": "https://drive.google.com/file/d/1gc7TRmRvSsbXjJbFprdGplbUqLQob_jG/view?usp=drive_link" },
+          {"id": "ct5", "label": "CT01-1.2", "url": "https://drive.google.com/file/d/11dgeKRro4E6R0Gh9G_8wFQV0r4ekUYgD/view?usp=drive_link" },
+          {"id": "ct6", "label": "CT01-1.3", "url": "https://drive.google.com/file/d/1CtfoRgJK46NNRkf66xtQMoQLb4fhCnLF/view?usp=drive_link" }
+        ],
+        "videos": [
+          { "id": "v1", "label": "01-Introduction", "url": "https://youtu.be/ykV-gpvDKJU?si=ZjQ03va4ppKCRDed", "by": "Kaniz" },
+          { "id": "v2", "label": "02-System Analyst", "url": "https://youtu.be/wWZWVwr4ROg?si=mVbBawfcVj0LEoVu", "by": "Kaniz" },
+          { "id": "v3", "label": "03-Types of Information System", "url": "https://youtu.be/hskN6fxs5a0?si=HoxyLnhCGd1EBiEw", "by": "Kaniz"},
+          { "id": "v4", "label": "04-SDLC", "url": "https://youtu.be/QThsE5swnAg?si=z0QNFIXmSfyyJqQW", "by": "Kaniz" },
+          { "id": "v5", "label": "05-CASE Tools", "url": "https://youtu.be/Q8C_CloS4zE?si=AePpqL4P49BAiYF7", "by": "Kaniz" },
+          { "id": "v6", "label": "06-The Agile Approch", "url": "https://youtu.be/oyT_h0-NP1g?si=iY6QquvwnPV3gn7H", "by": "Kaniz" },
+          { "id": "v7", "label": "07-Object Orientated System Analysis and Design", "url": "https://youtu.be/iVDfPNoTBzI?si=7k2EN1LRwVIE_xU8", "by": "Kaniz" },
+          { "id": "v8", "label": "PERT Chart- Project Scheduling", "url": "https://youtu.be/dgXeGVU60sY?si=ijBzCQ5_YMb3k6E4", "by": "Kaniz" }
+        ],
+        "repos": [
+          { "id": "r1", "label": "Theory + Lab Repo", "url": "https://github.com/kaniz-codes/cse318", "by": "Kaniz" }
+        ]
+      }
+    },
+    {
       "id": "cse320",
       "code": "CSE320",
       "semester": 5,
