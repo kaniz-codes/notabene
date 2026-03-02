@@ -11,7 +11,7 @@
       "title": "System Analysis & Design",
       "instructor": "—",
       "description": "Lab tasks, notes, and playlists for System Analysis & Design.",
-      "topics": ["Chap 01: Introduction", "Chap 01: Roles of System analyst", "Chap 01: SDLC", "Chap 01: Case Tools", "Chap 01: Agile Approch", "Chap 02: Context Level DFD", "Chap 02: E-R Diagram", "Chap 03: Project definition", "Chap 03: Project scheduling", "Chap 03: Gantt chart", "Chap 03: PERT chart"],
+      "topics": ["Chap 01: Introduction", "Chap 01: System analyst", "Chap 01: SDLC", "Chap 01: Case Tools", "Chap 01: Agile Approch", "Chap 02: Context Level DFD", "Chap 02: E-R Diagram", "Chap 03: Project definition", "Chap 03: Project scheduling", "Chap 03: Gantt chart", "Chap 03: PERT chart"],
       "resources": {
         "notes": [
           { "id": "n1", "label": "Mid-term Slides", "url": "https://github.com/kaniz-codes/cse318/tree/main/materials"}
