@@ -40,13 +40,68 @@
       }
     },
     {
-      "id": "cse320",
-      "code": "CSE320",
+      "id": "cse319",
+      "code": "CSE319",
       "semester": 5,
       "type": "theory",
       "title": "Computer Networks",
       "instructor": "Dr. Khandoker Nadim Parvez",
       "description": "Notes, CT questions, playlist links, and repos for Computer Networks.",
+      "topics": ["OSI Model", "TCP/UDP", "IP Addressing & Subnetting", "Routing Basics"],
+      "resources": {
+        "notes": [
+          {
+            "id": "n1",
+            "label": "Mid-term class Slides",
+            "url": "https://github.com/kaniz-codes/cse320/tree/main/material",
+            "by": "Kaniz"
+          },
+          {
+            "id": "n2",
+            "label": "Mid Class notes",
+            "url": "https://drive.google.com/file/d/1Jtp2-WjG9PVGMcTTIRF4Yc5P2442X8rw/view?usp=drive_link",
+            "by": "Kaniz"
+          },
+          {
+            "id": "n3",
+            "label": "Mid Class notes",
+            "url": "https://drive.google.com/file/d/1bRPW7kFtvj1LDWqOhLKwl6Q3hrMjXKkp/view?usp=drive_link",
+            "by": "Iffat"
+          }
+        ],
+        "ct": [
+          { "id": "ct1", "label": "CT01-sec-8", "url": "https://drive.google.com/file/d/1p0JP_gkKBIeSgvXhLbJM4NnB2bcwXepf/view?usp=drive_link" },
+          { "id": "ct2", "label": "CT01-sec-9", "url": "https://drive.google.com/file/d/1m1SMTha_OQtfSDxnMaIqHyoDxOSKBx5H/view?usp=drive_link" },
+          { "id": "ct3", "label": "CT01.1", "url": "https://drive.google.com/file/d/1iNfApyd_RHK_244HifcXzSoABS3QxYme/view?usp=drive_link" },
+          { "id": "ct4", "label": "CT01.2", "url": "https://drive.google.com/file/d/1X1_JXp1XvIEDHm9cABJcMfubpdt5nKKX/view?usp=drive_link" }
+        ],
+        "videos": [
+          { "id": "v1", "label": "DNS Steps", "url": "https://youtu.be/W7VpLk_23ws?si=DKd69LccYrUoVw7b", "by": "Kaniz" },
+          { "id": "v2", "label": "HTTP Non persistence vs Persistence", "url": "https://youtu.be/KJEGVzs4AGE?si=FYIsUX1ZITjH5Jtq", "by": "Kaniz" },
+          { "id": "v3", "label": "HTTP Theory + Math", "url": "https://youtu.be/zfHKCUggPEw?si=E2MA0GUo9D5JHUOK", "by": "Kaniz" },
+          { "id": "v4", "label": "HTTP Theory + Math", "url": "https://youtu.be/zfHKCUggPEw?si=E2MA0GUo9D5JHUOK", "by": "Kaniz" },
+          { "id": "v5", "label": "HTTP Theory + Math", "url": "https://youtu.be/zfHKCUggPEw?si=E2MA0GUo9D5JHUOK", "by": "Kaniz" },
+          { "id": "v6", "label": "OSI Model", "url": "https://youtu.be/zfHKCUggPEw?si=E2MA0GUo9D5JHUOK", "by": "Kaniz" },
+          { "id": "v7", "label": "Cryptography math", "url": "https://youtu.be/JLrZ_r4pJOk?si=kF7aP_hdYghbpXgS", "by": "Kaniz" },
+          { "id": "v8", "label": "IP Address math solve 1", "url": "https://youtu.be/6vKJo1_5r8o?si=xUa0cMlqlPMTkRwo", "by": "Kaniz" },
+          { "id": "v9", "label": "IP Address math solve 2", "url": "https://youtu.be/nJv6nmBuu6A?si=OTisUNCbfKeejCNW", "by": "Kaniz" },
+          { "id": "v10", "label": "Delay Math", "url": "https://youtu.be/Rjk2vQC88gQ?si=xX7XCFpe7H9ii-oI", "by": "Kaniz" }
+        ],
+        "repos": 
+        [ { "id": "r1", "label": "Course Repo", "url": "https://github.com/kaniz-codes/cse320", "by": "Kaniz" },
+          { "id": "r2", "label": "Lab Solutions Repo", "url": "https://github.com/kaniz-codes/cse320-labs", "by": "Kaniz" },
+          { "id": "r3", "label": "Practice Problems Repo", "url": "https://github.com/kaniz-codes/cse320-practice", "by": "Kaniz" }
+        ]
+      }
+    },
+    {
+      "id": "cse320",
+      "code": "CSE320",
+      "semester": 5,
+      "type": "lab",
+      "title": "Computer Networks",
+      "instructor": "Dr. Khandoker Nadim Parvez",
+      "description": "Lab manuals and lab reports for Computer Networks Lab.",
       "topics": ["OSI Model", "TCP/UDP", "IP Addressing & Subnetting", "Routing Basics"],
       "resources": {
         "notes": [
@@ -82,7 +137,8 @@
             "by": "Kaniz"
           }
         ],
-        "repos": [
+        "repos": 
+        [
           { "id": "r1", "label": "Course Repo", "url": "https://github.com/kaniz-codes/cse320", "by": "Kaniz" },
           { "id": "r2", "label": "Lab Solutions Repo", "url": "https://github.com/kaniz-codes/cse320-labs", "by": "Kaniz" },
           { "id": "r3", "label": "Practice Problems Repo", "url": "https://github.com/kaniz-codes/cse320-practice", "by": "Kaniz" }
