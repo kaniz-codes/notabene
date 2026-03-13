@@ -14,15 +14,17 @@
       "topics": ["Chap 01: Introduction", "Chap 01: System analyst", "Chap 01: SDLC", "Chap 01: Case Tools", "Chap 01: Agile Approch", "Chap 02: Context Level DFD", "Chap 02: E-R Diagram", "Chap 03: Project definition", "Chap 03: Project scheduling", "Chap 03: Gantt chart", "Chap 03: PERT chart"],
       "resources": {
         "notes": [
+          { "id": "n2", "label": "Final Slides", "url": "https://drive.google.com/drive/folders/1R-MXwzn1yML2kmCVa4URhWE6NC7VsOxc?usp=sharing"},
           { "id": "n1", "label": "Mid-term Slides", "url": "https://github.com/kaniz-codes/cse318/tree/main/materials"}
+        
         ],
         "ct": [
           { "id": "ct1","label": "CT01-sec-5", "url": "https://drive.google.com/file/d/1rzx57YySf6LGpijfIv2vB9L-gKgiMMA-/view?usp=drive_link" },
           { "id": "ct2", "label": "CT01-sec-5", "url": "https://drive.google.com/file/d/1bIirO9nDVAwO8qLpvkDijyKl1Q-Y3G6T/view?usp=drive_link" },
           { "id": "ct3", "label": "CT01-sec-8", "url": "https://drive.google.com/file/d/1kKSrC96YupmOzaUrwSkvU-PRN5_z0qj1/view?usp=drive_link" },
           { "id": "ct4", "label": "CT01-1.1", "url": "https://drive.google.com/file/d/1gc7TRmRvSsbXjJbFprdGplbUqLQob_jG/view?usp=drive_link" },
-          {"id": "ct5", "label": "CT01-1.2", "url": "https://drive.google.com/file/d/11dgeKRro4E6R0Gh9G_8wFQV0r4ekUYgD/view?usp=drive_link" },
-          {"id": "ct6", "label": "CT01-1.3", "url": "https://drive.google.com/file/d/1CtfoRgJK46NNRkf66xtQMoQLb4fhCnLF/view?usp=drive_link" }
+          { "id": "ct5", "label": "CT01-1.2", "url": "https://drive.google.com/file/d/11dgeKRro4E6R0Gh9G_8wFQV0r4ekUYgD/view?usp=drive_link" },
+          { "id": "ct6", "label": "CT01-1.3", "url": "https://drive.google.com/file/d/1CtfoRgJK46NNRkf66xtQMoQLb4fhCnLF/view?usp=drive_link" }
         ],
         "videos": [
           { "id": "v1", "label": "01-Introduction", "url": "https://youtu.be/ykV-gpvDKJU?si=ZjQ03va4ppKCRDed", "by": "Kaniz" },
