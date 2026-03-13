@@ -9,9 +9,9 @@
       "semester": 5,
       "type": "theory",
       "title": "System Analysis & Design",
-      "instructor": "—",
-      "description": "Lab tasks, notes, and playlists for System Analysis & Design.",
-      "topics": ["Chap 01: Introduction", "Chap 01: System analyst", "Chap 01: SDLC", "Chap 01: Case Tools", "Chap 01: Agile Approch", "Chap 02: Context Level DFD", "Chap 02: E-R Diagram", "Chap 03: Project definition", "Chap 03: Project scheduling", "Chap 03: Gantt chart", "Chap 03: PERT chart"],
+      "instructor": "Shampa Banik",
+      "description": "Notes, Slides and playlists for System Analysis & Design.",
+      "topics": ["C01: Introduction", "C01: System analyst", "C01: SDLC", "C01: Case Tools", "C01: Agile Approch", "C02: Context Level DFD", "C02: E-R Diagram", "C03: Project definition", "C03: Project scheduling", "C03: Gantt chart", "C03: PERT chart"],
       "resources": {
         "notes": [
           { "id": "n2", "label": "Final Slides", "url": "https://drive.google.com/drive/folders/1R-MXwzn1yML2kmCVa4URhWE6NC7VsOxc?usp=sharing"},
@@ -153,16 +153,16 @@
       "semester": 5,
       "type": "lab",
       "title": "Java OOP Lab",
-      "instructor": "—",
+      "instructor": "Most. Jannatul Ferdous",
       "description": "Lab tasks, notes, and playlists for Java OOP Lab.",
       "topics": ["Classes & Objects", "Inheritance", "Polymorphism", "Interfaces"],
       "resources": {
         "notes": [
-          { "id": "n1", "label": "Notes Folder", "url": "https://drive.google.com/", "by": "Kaniz" }
+          { "id": "n1", "label": "Mid Class Note", "url": "https://drive.google.com/file/d/14HVVqvoZ0mqZ277ggVe2lNSbc6bZNUKt/view?usp=drive_link", "by": "Kaniz" }
         ],
         "ct": [],
         "videos": [
-          { "id": "v1", "label": "OOP Playlist", "url": "https://www.youtube.com/", "by": "Kaniz" },
+          { "id": "v1", "label": "Java Playlist", "url": "https://youtube.com/playlist?list=PL1BNWNaLmmqxszB_euOzAHPHRtlb3Rv0y&si=iRvLXomfZ-wOZIDQ", "by": "Kaniz" },
           {
             "id": "v2",
             "label": "Pass obj as parameter and return obj from method | Java",
@@ -171,7 +171,7 @@
           }
         ],
         "repos": [
-          { "id": "r1", "label": "Lab Repo", "url": "#", "by": "Me" }
+          { "id": "r1", "label": "Repository", "url": "https://github.com/kaniz-codes/cse342", "by": "Kaniz" }
         ]
       }
     }
